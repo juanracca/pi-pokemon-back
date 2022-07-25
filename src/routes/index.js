@@ -141,7 +141,7 @@ const getDbPokemons3 = async () => {
     });
     console.log(Pokemon);
 };
-// DE 100 A 130 POKEMONES
+// DE 100 A 125 POKEMONES
 const getApiInfo125 = async () => {
     const apiUrl4 = await axios.get('https://pokeapi.co/api/v2/pokemon?offset=100&limit=25');
     const poData4 = apiUrl4.data.results;
