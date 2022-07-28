@@ -20,7 +20,7 @@ const getApiInfo40 = async () => {
         let pokemons = {
             name: el.name,
             id: dataPokemon.data.id,
-            image: dataPokemon.data.sprites.versions['generation-v']['black-white'].animated.front_default,
+            image: dataPokemon.data.sprites.other['official-artwork'].front_default,
             types: dataPokemon.data.types.map(poke => poke.type.name),
             hp: dataPokemon.data.stats[0].base_stat,
             attack: dataPokemon.data.stats[1].base_stat,
@@ -71,7 +71,7 @@ const getApiInfo70 = async () => {
         let pokemons2 = {
             name: el.name,
             id: dataPokemon2.data.id,
-            image: dataPokemon2.data.sprites.versions['generation-v']['black-white'].animated.front_default,
+            image: dataPokemon2.data.sprites.other['official-artwork'].front_default,
             types: dataPokemon2.data.types.map(poke => poke.type.name),
             hp: dataPokemon2.data.stats[0].base_stat,
             attack: dataPokemon2.data.stats[1].base_stat,
@@ -114,7 +114,7 @@ const getApiInfo100 = async () => {
         let pokemons3 = {
             name: el.name,
             id: dataPokemon3.data.id,
-            image: dataPokemon3.data.sprites.versions['generation-v']['black-white'].animated.front_default,
+            image: dataPokemon3.data.sprites.other['official-artwork'].front_default,
             types: dataPokemon3.data.types.map(poke => poke.type.name),
             hp: dataPokemon3.data.stats[0].base_stat,
             attack: dataPokemon3.data.stats[1].base_stat,
@@ -157,7 +157,7 @@ const getApiInfo125 = async () => {
         let pokemons4 = {
             name: el.name,
             id: dataPokemon4.data.id,
-            image: dataPokemon4.data.sprites.versions['generation-v']['black-white'].animated.front_default,
+            image: dataPokemon4.data.sprites.other['official-artwork'].front_default,
             types: dataPokemon4.data.types.map(poke => poke.type.name),
             hp: dataPokemon4.data.stats[0].base_stat,
             attack: dataPokemon4.data.stats[1].base_stat,
@@ -200,7 +200,7 @@ const getApiInfo151 = async () => {
         let pokemons5 = {
             name: el.name,
             id: dataPokemon5.data.id,
-            image: dataPokemon5.data.sprites.versions['generation-v']['black-white'].animated.front_default,
+            image: dataPokemon5.data.sprites.other['official-artwork'].front_default,
             types: dataPokemon5.data.types.map(poke => poke.type.name),
             hp: dataPokemon5.data.stats[0].base_stat,
             attack: dataPokemon5.data.stats[1].base_stat,
