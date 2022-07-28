@@ -50,6 +50,13 @@ const getDbPokemons = async () => {
                 speed: element.speed,
                 height: element.height,
                 weight: element.weight,
+            },
+            include:{
+                model: Type,
+                attributes: ['name'],
+                through: {
+                    attributes: [],
+                }
             }
         });
     });
