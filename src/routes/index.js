@@ -55,7 +55,7 @@ const getDbPokemons = async () => {
                 model: Type,
                 attributes: ['name'],
                 through: {
-                    attributes: [],
+                    attributes: [element.types],
                 }
             }
         });
@@ -237,29 +237,29 @@ const getDbPokemons5 = async () => {
 //--------------------------------------------------------------->
 
 
-const getDbInfo = async () => {
+// const getDbInfo = async () => {
 
-    return await Pokemon.findAll({
-        include: {
-            model: Type,
-            attributes: ['name'],
-            through: {
-                attributes: [],
-            },
-        },
-    });
-};
+//     return await Pokemon.findAll({
+//         include: {
+//             model: Type,
+//             attributes: ['name'],
+//             through: {
+//                 attributes: [],
+//             },
+//         },
+//     });
+// };
 
-const getAllPokemons = async () => {
+// const getAllPokemons = async () => {
 
-    const pokemonsApi = await getApiInfo();
-    const pokemonsDb = await getDbInfo();
-    const allPokemons = pokemonsApi.concat(pokemonsDb);
+//     const pokemonsApi = await getApiInfo();
+//     const pokemonsDb = await getDbInfo();
+//     const allPokemons = pokemonsApi.concat(pokemonsDb);
 
-    return allPokemons;
+//     return allPokemons;
 
 
-};
+// };
 
 router.get('/pokemonsDb', async (req, res) => {
     console.log(getApiInfo40())
