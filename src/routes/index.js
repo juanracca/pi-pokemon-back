@@ -262,7 +262,7 @@ const getAllPokemons = async () => {
 };
 
 router.get('/pokemonsDb', async (req, res) => {
-
+    console.log(getApiInfo40())
     const dbPokemons = await Pokemon.findAll({
         include:{
             model: Type,
