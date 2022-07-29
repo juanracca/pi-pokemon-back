@@ -55,7 +55,7 @@ const getDbPokemons = async () => {
                 model: Type,
                 attributes: ['name'],
                 through: {
-                    attributes: [element.types],
+                    attributes: [],
                 }
             }
         });
