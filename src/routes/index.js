@@ -263,7 +263,16 @@ const getAllPokemons = async () => {
 
 router.get('/pokemonsDb', async (req, res) => {
 
-    const dbPokemons = await Pokemon.findAll();
+    const dbPokemons = await Pokemon.findAll({
+        include:{
+            model: Type,
+            attributes: ['name'],
+            through:{
+                attributes: []
+            },
+        },
+    });
+    
     res.status(200).send(dbPokemons);
     
 });
