@@ -29,7 +29,6 @@ const getApiInfo40 = async () => {
             height: dataPokemon.data.height,
             weight: dataPokemon.data.weight,
         };
-        // console.log(pokemons)
         return pokemons; 
     }));   
     return data1;
@@ -37,7 +36,6 @@ const getApiInfo40 = async () => {
 
 const getDbPokemons = async () => {
     let totalPokemons =  await getApiInfo40();
-    // console.log(totalPokemons)
     totalPokemons.forEach(element => {
         Pokemon.findOrCreate({
             where: {
@@ -55,12 +53,11 @@ const getDbPokemons = async () => {
                 model: Type,
                 attributes: ['name'],
                 through: {
-                    attributes: [element.types? element.types : console.log('dbj')],
+                    attributes: [],
                 }
             }
         });
     });
-    // console.log(Pokemon);
 };
 //DE 40 A 70 POKEMONES
 const getApiInfo70 = async () => {
@@ -80,14 +77,12 @@ const getApiInfo70 = async () => {
             height: dataPokemon2.data.height,
             weight: dataPokemon2.data.weight,
         };
-        console.log(pokemons2)
         return pokemons2;
     }));
     return data2;
 };
 const getDbPokemons2 = async () => {
     let totalPokemons2 =  await getApiInfo70();
-    console.log(totalPokemons2)
     totalPokemons2.forEach(element => {
         Pokemon.findOrCreate({
             where: {
@@ -100,10 +95,16 @@ const getDbPokemons2 = async () => {
                 speed: element.speed,
                 height: element.height,
                 weight: element.weight,
+            },
+            include:{
+                model: Type,
+                attributes: ['name'],
+                through: {
+                    attributes: [],
+                }
             }
         });
     });
-    console.log(Pokemon);
 };
 //DE 70 A 100 POKEMONES
 const getApiInfo100 = async () => {
@@ -123,14 +124,12 @@ const getApiInfo100 = async () => {
             height: dataPokemon3.data.height,
             weight: dataPokemon3.data.weight,
         };
-        console.log(pokemons3)
         return pokemons3;
     }));
     return data3;
 };
 const getDbPokemons3 = async () => {
     let totalPokemons3 =  await getApiInfo100();
-    console.log(totalPokemons3)
     totalPokemons3.forEach(element => {
         Pokemon.findOrCreate({
             where: {
@@ -146,7 +145,6 @@ const getDbPokemons3 = async () => {
             }
         });
     });
-    console.log(Pokemon);
 };
 // DE 100 A 125 POKEMONES
 const getApiInfo125 = async () => {
@@ -166,14 +164,12 @@ const getApiInfo125 = async () => {
             height: dataPokemon4.data.height,
             weight: dataPokemon4.data.weight,
         };
-        console.log(pokemons4)
         return pokemons4;
     }));
     return data4;
 };
 const getDbPokemons4 = async () => {
     let totalPokemons4 =  await getApiInfo125();
-    console.log(totalPokemons4)
     totalPokemons4.forEach(element => {
         Pokemon.findOrCreate({
             where: {
@@ -189,7 +185,6 @@ const getDbPokemons4 = async () => {
             }
         });
     });
-    console.log(Pokemon);
 };
 // DE 125 A 151 POKEMONES (PRIMERA GENERACION)
 const getApiInfo151 = async () => {
@@ -209,14 +204,12 @@ const getApiInfo151 = async () => {
             height: dataPokemon5.data.height,
             weight: dataPokemon5.data.weight,
         };
-        console.log(pokemons5)
         return pokemons5;
     }));
     return data5;
 };
 const getDbPokemons5 = async () => {
     let totalPokemons5 =  await getApiInfo151();
-    console.log(totalPokemons5)
     totalPokemons5.forEach(element => {
         Pokemon.findOrCreate({
             where: {
@@ -232,7 +225,6 @@ const getDbPokemons5 = async () => {
             }
         });
     });
-    console.log(Pokemon);
 };
 //--------------------------------------------------------------->
 
@@ -262,7 +254,6 @@ const getDbPokemons5 = async () => {
 // };
 
 router.get('/pokemonsDb', async (req, res) => {
-    // console.log(getApiInfo40())
     const dbPokemons = await Pokemon.findAll({
         include:{
             model: Type,
@@ -272,7 +263,6 @@ router.get('/pokemonsDb', async (req, res) => {
             },
         },
     });
-    console.log(dbPokemons)
     res.status(200).send(dbPokemons);
     
 });
@@ -282,7 +272,6 @@ router.get('/pokemonsDb', async (req, res) => {
 
 router.get('/pokemons', async (req, res) => {
     const name = req.query.name;
-    // console.log(getDbPokemons())
     let pokemons = await getDbPokemons();
 
     if(name){
@@ -356,7 +345,6 @@ router.get('/pokemons/:id', async (req, res) => {
     if(id.length > 3){
         const pokemonsTotal = await getAllPokemons();
         const pokemonId = await pokemonsTotal.filter(el => el.id === id);
-        console.log(pokemonId)
         pokemonId.length ?
         res.status(200).send(pokemonId[0]) :
         res.status(400).send('Pokemon not found');
@@ -375,7 +363,6 @@ router.get('/pokemons/:id', async (req, res) => {
         defense: pokemon.stats[2].base_stat,
         speed: pokemon.stats[5].base_stat,
     };
-    console.log(pokemonData)
     res.status(200).send(pokemonData);
 });
 
@@ -418,7 +405,6 @@ router.post('/pokemon', async (req, res) => {
         });
 
         pokemonCreated.addType(typeDb);
-        console.log(pokemonCreated)
 
         res.status(200).send('Pokemon created succesfully!');
 
