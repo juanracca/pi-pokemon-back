@@ -29,7 +29,7 @@ const getApiInfo40 = async () => {
             height: dataPokemon.data.height,
             weight: dataPokemon.data.weight,
         };
-        console.log(pokemons)
+        // console.log(pokemons)
         return pokemons; 
     }));   
     return data1;
@@ -37,7 +37,7 @@ const getApiInfo40 = async () => {
 
 const getDbPokemons = async () => {
     let totalPokemons =  await getApiInfo40();
-    console.log(totalPokemons)
+    // console.log(totalPokemons)
     totalPokemons.forEach(element => {
         Pokemon.findOrCreate({
             where: {
@@ -55,12 +55,12 @@ const getDbPokemons = async () => {
                 model: Type,
                 attributes: ['name'],
                 through: {
-                    attributes: [],
+                    attributes: [element.types? element.types : console.log('dbj')],
                 }
             }
         });
     });
-    console.log(Pokemon);
+    // console.log(Pokemon);
 };
 //DE 40 A 70 POKEMONES
 const getApiInfo70 = async () => {
@@ -262,7 +262,7 @@ const getDbPokemons5 = async () => {
 // };
 
 router.get('/pokemonsDb', async (req, res) => {
-    console.log(getApiInfo40())
+    // console.log(getApiInfo40())
     const dbPokemons = await Pokemon.findAll({
         include:{
             model: Type,
@@ -272,7 +272,7 @@ router.get('/pokemonsDb', async (req, res) => {
             },
         },
     });
-    
+    console.log(dbPokemons)
     res.status(200).send(dbPokemons);
     
 });
@@ -282,6 +282,7 @@ router.get('/pokemonsDb', async (req, res) => {
 
 router.get('/pokemons', async (req, res) => {
     const name = req.query.name;
+    // console.log(getDbPokemons())
     let pokemons = await getDbPokemons();
 
     if(name){
