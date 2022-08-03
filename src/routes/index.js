@@ -18,26 +18,26 @@ const getApiInfo40 = async () => {
     let  data1 =  await Promise.all(poData1.map(async el => {
         let dataPokemon = await axios.get(el.url);
         let pokemons = {
-            name: el.name,
             id: dataPokemon.data.id,
+            name: el.name,
             image: dataPokemon.data.sprites.other['official-artwork'].front_default,
-            types: dataPokemon.data.types.map(poke => poke.type.name),
             hp: dataPokemon.data.stats[0].base_stat,
             attack: dataPokemon.data.stats[1].base_stat,
             defense: dataPokemon.data.stats[2].base_stat,
             speed: dataPokemon.data.stats[5].base_stat,
             height: dataPokemon.data.height,
             weight: dataPokemon.data.weight,
+            types: dataPokemon.data.types.map(poke => poke.type.name),
         };
+        
         return pokemons; 
-    }));   
+    })); 
     return data1;
 };
-
 const getDbPokemons = async () => {
     let totalPokemons =  await getApiInfo40();
-    totalPokemons.forEach(element => {
-        Pokemon.findOrCreate({
+    totalPokemons.forEach(async element => {
+        await Pokemon.findOrCreate({
             where: {
                 id: element.id,
                 name: element.name,
@@ -48,16 +48,10 @@ const getDbPokemons = async () => {
                 speed: element.speed,
                 height: element.height,
                 weight: element.weight,
-            },
-            include:{
-                model: Type,
-                attributes: ['name'],
-                through: {
-                    attributes: [],
-                }
+                types: element.types
             }
-        });
-    });
+        })
+    })
 };
 //DE 40 A 70 POKEMONES
 const getApiInfo70 = async () => {
@@ -83,8 +77,8 @@ const getApiInfo70 = async () => {
 };
 const getDbPokemons2 = async () => {
     let totalPokemons2 =  await getApiInfo70();
-    totalPokemons2.forEach(element => {
-        Pokemon.findOrCreate({
+    totalPokemons2.forEach(async element => {
+        await Pokemon.findOrCreate({
             where: {
                 id: element.id,
                 name: element.name,
@@ -95,14 +89,8 @@ const getDbPokemons2 = async () => {
                 speed: element.speed,
                 height: element.height,
                 weight: element.weight,
+                types: element.types
             },
-            include:{
-                model: Type,
-                attributes: ['name'],
-                through: {
-                    attributes: [],
-                }
-            }
         });
     });
 };
@@ -130,8 +118,8 @@ const getApiInfo100 = async () => {
 };
 const getDbPokemons3 = async () => {
     let totalPokemons3 =  await getApiInfo100();
-    totalPokemons3.forEach(element => {
-        Pokemon.findOrCreate({
+    totalPokemons3.forEach(async element => {
+        await Pokemon.findOrCreate({
             where: {
                 id: element.id,
                 name: element.name,
@@ -142,6 +130,7 @@ const getDbPokemons3 = async () => {
                 speed: element.speed,
                 height: element.height,
                 weight: element.weight,
+                types: element.types
             }
         });
     });
@@ -170,8 +159,8 @@ const getApiInfo125 = async () => {
 };
 const getDbPokemons4 = async () => {
     let totalPokemons4 =  await getApiInfo125();
-    totalPokemons4.forEach(element => {
-        Pokemon.findOrCreate({
+    totalPokemons4.forEach(async element => {
+        await Pokemon.findOrCreate({
             where: {
                 id: element.id,
                 name: element.name,
@@ -182,6 +171,7 @@ const getDbPokemons4 = async () => {
                 speed: element.speed,
                 height: element.height,
                 weight: element.weight,
+                types: element.types
             }
         });
     });
@@ -210,8 +200,8 @@ const getApiInfo151 = async () => {
 };
 const getDbPokemons5 = async () => {
     let totalPokemons5 =  await getApiInfo151();
-    totalPokemons5.forEach(element => {
-        Pokemon.findOrCreate({
+    totalPokemons5.forEach(async element => {
+        await Pokemon.findOrCreate({
             where: {
                 id: element.id,
                 name: element.name,
@@ -222,58 +212,26 @@ const getDbPokemons5 = async () => {
                 speed: element.speed,
                 height: element.height,
                 weight: element.weight,
+                types: element.types
             }
         });
     });
 };
 //--------------------------------------------------------------->
 
-
-// const getDbInfo = async () => {
-
-//     return await Pokemon.findAll({
-//         include: {
-//             model: Type,
-//             attributes: ['name'],
-//             through: {
-//                 attributes: [],
-//             },
-//         },
-//     });
-// };
-
-// const getAllPokemons = async () => {
-
-//     const pokemonsApi = await getApiInfo();
-//     const pokemonsDb = await getDbInfo();
-//     const allPokemons = pokemonsApi.concat(pokemonsDb);
-
-//     return allPokemons;
-
-
-// };
-
 router.get('/pokemonsDb', async (req, res) => {
-    const dbPokemons = await Pokemon.findAll({
-        include:{
-            model: Type,
-            attributes: ['name'],
-            through:{
-                attributes: []
-            },
-        },
-    });
+    const dbPokemons = await Pokemon.findAll();
+    console.log(dbPokemons);
     res.status(200).send(dbPokemons);
     
 });
 
-//------------------------------------------------------->
+//------------------------------------------------------>
 
 
-router.get('/pokemons', async (req, res) => {
+router.post('/pokemons', async (req, res) => {
     const name = req.query.name;
     let pokemons = await getDbPokemons();
-
     if(name){
         let pokemonName = await pokemons.filter(el => el.name.toLowerCase().includes(name.toLowerCase()));
         pokemonName.length ?
@@ -376,7 +334,8 @@ router.get('/types', async (req, res) => {
         });
     });
 
-    const allTypes = await Type.findAll();
+    const allTypes = await Type.findAll({ raw: true });
+    console.log(allTypes);
     res.status(200).send(allTypes);
 });
 

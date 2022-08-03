@@ -46,5 +46,9 @@ module.exports = (sequelize) => {
       allowNull: false,
       defaultValue: true,
     },
+    types: {
+      type: DataTypes.ARRAY(DataTypes.STRING),
+      allowNull: false
+    }
   });
 };
