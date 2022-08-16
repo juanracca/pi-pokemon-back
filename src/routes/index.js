@@ -231,7 +231,7 @@ router.get('/pokemonsDb', async (req, res) => {
 
 router.post('/pokemons', async (req, res) => {
     const name = req.query.name;
-    let pokemons = await getDbPokemons();
+    let pokemons = await Pokemon.findAll();
     if(name){
         let pokemonName = await pokemons.filter(el => el.name.toLowerCase().includes(name.toLowerCase()));
         pokemonName.length ?
@@ -301,18 +301,18 @@ router.get('/pokemons/:id', async (req, res) => {
     const id = req.params.id;
 
     if(id.length > 3){
-        const pokemonsTotal = await getAllPokemons();
+        const pokemonsTotal = await Pokemon.findAll();
         const pokemonId = await pokemonsTotal.filter(el => el.id === id);
         pokemonId.length ?
         res.status(200).send(pokemonId[0]) :
         res.status(400).send('Pokemon not found');
     };
-    const pokemonDetail = await axios.get(`https://pokeapi.co/api/v2/pokemon/${id}`);
+    const pokemonDetail = await axios.get('http://localhost:3001/pokemons/' + id);
     const pokemon = pokemonDetail.data;
     const pokemonData = {
         name: pokemon.name,
         id: pokemon.id,
-        image: pokemon.sprites.versions['generation-v']['black-white'].animated.front_default,
+        image: pokemon.data.sprites.other['official-artwork'].front_default,
         height: pokemon.height,
         weight: pokemon.weight,
         types: pokemon.types.map(poke => poke.type.name),
