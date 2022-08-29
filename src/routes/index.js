@@ -220,10 +220,17 @@ const getDbPokemons5 = async () => {
 //--------------------------------------------------------------->
 
 router.get('/pokemonsDb', async (req, res) => {
+    const name = req.query.name;
     const dbPokemons = await Pokemon.findAll();
     console.log(dbPokemons);
-    res.status(200).send(dbPokemons);
-    
+    if(name){
+        let pokemonName = await pokemons.filter(el => el.name.toLowerCase().includes(name.toLowerCase()));
+        pokemonName.length ?
+        res.status(200).send(pokemonName) :
+        res.status(400).send('Pokemon was not found!');
+    } else {
+        res.status(200).send(pokemons);
+    };
 });
 
 //------------------------------------------------------>
@@ -336,7 +343,6 @@ router.get('/types', async (req, res) => {
     });
 
     const allTypes = await Type.findAll({ raw: true });
-    console.log(allTypes);
     res.status(200).send(allTypes);
 });
 
@@ -352,20 +358,20 @@ router.post('/pokemon', async (req, res) => {
         speed,
         height, 
         weight,
-        type,
+        types,
     } = req.body;
 
     try {
 
         let pokemonCreated = await Pokemon.create({
-            id, name, image, hp, attack, defense, speed, height, weight
+            id, name, image, hp, attack, defense, speed, height, weight, types
         });
-        let typeDb = await Type.findAll({
-            where: { name: type }
-        });
+        // let typeDb = await Type.findAll({
+        //     where: { name: type }
+        // });
 
-        pokemonCreated.addType(typeDb);
-
+        // pokemonCreated.addType(typeDb);
+        pokemonCreated;
         res.status(200).send('Pokemon created succesfully!');
 
     } catch(err) {
