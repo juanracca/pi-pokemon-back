@@ -229,7 +229,7 @@ router.get('/pokemonsDb', async (req, res) => {
         res.status(200).send(pokemonName) :
         res.status(400).send('Pokemon was not found!');
     } else {
-        res.status(200).send(pokemons);
+        res.status(200).send(dbPokemons);
     };
 });
 
