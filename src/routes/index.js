@@ -224,7 +224,7 @@ router.get('/pokemonsDb', async (req, res) => {
     const dbPokemons = await Pokemon.findAll();
     console.log(dbPokemons);
     if(name){
-        let pokemonName = await pokemons.filter(el => el.name.toLowerCase().includes(name.toLowerCase()));
+        let pokemonName = await dbPokemons.filter(el => el.name.toLowerCase().includes(name.toLowerCase()));
         pokemonName.length ?
         res.status(200).send(pokemonName) :
         res.status(400).send('Pokemon was not found!');
