@@ -327,7 +327,7 @@ router.get('/pokemons/:id', async (req, res) => {
         image: pokemonDetail.image,
         height: pokemonDetail.height,
         weight: pokemonDetail.weight,
-        types: pokemonDetail.types.map(poke => poke.name),
+        types: pokemonDetail.types,
         hp: pokemonDetail.stats[0].base_stat,
         attack: pokemonDetail.stats[1].base_stat,
         defense: pokemonDetail.stats[2].base_stat,
