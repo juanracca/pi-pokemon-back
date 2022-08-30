@@ -307,15 +307,17 @@ router.get('/pokemons/:id', async (req, res) => {
 
     const id = req.params.id;
 
-    if(id.length > 5){
+    if(id.length > 4){
         const pokemonsTotal = await Pokemon.findAll();
         const pokemonId = await pokemonsTotal.filter(el => el.id === id);
         pokemonId.length ?
         res.status(200).send(pokemonId[0]) :
         res.status(400).send('Pokemon not found');
     };
-    const pokemonDetail = await axios.get('https://pokeapi.co/api/v2/pokemon/' + id);
-    const pokemon = pokemonDetail.data;
+    // const pokemonDetail = await axios.get('https://pokeapi.co/api/v2/pokemon/' + id);
+    const pokemonDetail = await axios.get('http://localhost:3001/pokemonsdb')
+    const pokemon = pokemonDetail.data.id;
+    console.log(pokemon)
     //console.log('detalle pokemon',pokemon.sprites)
     const pokemonData = {
         name: pokemon.name,
