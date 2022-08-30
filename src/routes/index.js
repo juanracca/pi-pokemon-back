@@ -321,6 +321,7 @@ router.get('/pokemons/:id', async (req, res) => {
     })
     console.log(pokemonDetail)
     //console.log('detalle pokemon',pokemon.sprites)
+    console.log(pokemonDetail[0].pokemon)
     const pokemonData = {
         name: pokemonDetail[0].pokemon.dataValues.name,
         id: pokemonDetail[0].pokemon.dataValues.id,
