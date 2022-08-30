@@ -328,10 +328,10 @@ router.get('/pokemons/:id', async (req, res) => {
         height: pokemonDetail.height,
         weight: pokemonDetail.weight,
         types: pokemonDetail.types,
-        hp: pokemonDetail.stats[0].base_stat,
-        attack: pokemonDetail.stats[1].base_stat,
-        defense: pokemonDetail.stats[2].base_stat,
-        speed: pokemonDetail.stats[5].base_stat,
+        hp: pokemonDetail.hp,
+        attack: pokemonDetail.attack,
+        defense: pokemonDetail.defense,
+        speed: pokemonDetail.speed,
     };
     res.status(200).send(pokemonData);
 });
