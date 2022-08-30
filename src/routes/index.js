@@ -307,7 +307,7 @@ router.get('/pokemons/:id', async (req, res) => {
 
     const id = req.params.id;
 
-    if(id.length > 3){
+    if(id.length > 5){
         const pokemonsTotal = await Pokemon.findAll();
         const pokemonId = await pokemonsTotal.filter(el => el.id === id);
         pokemonId.length ?
