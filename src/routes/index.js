@@ -322,16 +322,16 @@ router.get('/pokemons/:id', async (req, res) => {
     console.log(pokemonDetail)
     //console.log('detalle pokemon',pokemon.sprites)
     const pokemonData = {
-        name: pokemonDetail.pokemon.dataValues.name,
-        id: pokemonDetail.pokemon.dataValues.id,
-        image: pokemonDetail.pokemon.dataValues.image,
-        height: pokemonDetail.pokemon.dataValues.height,
-        weight: pokemonDetail.pokemon.dataValues.weight,
-        types: pokemonDetail.pokemon.dataValues.types,
-        hp: pokemonDetail.pokemon.dataValues.hp,
-        attack: pokemonDetail.pokemon.dataValues.attack,
-        defense: pokemonDetail.pokemon.dataValues.defense,
-        speed: pokemonDetail.pokemon.dataValues.speed,
+        name: pokemonDetail[0].pokemon.dataValues.name,
+        id: pokemonDetail[0].pokemon.dataValues.id,
+        image: pokemonDetail[0].pokemon.dataValues.image,
+        height: pokemonDetail[0].pokemon.dataValues.height,
+        weight: pokemonDetail[0].pokemon.dataValues.weight,
+        types: pokemonDetail[0].pokemon.dataValues.types,
+        hp: pokemonDetail[0].pokemon.dataValues.hp,
+        attack: pokemonDetail[0].pokemon.dataValues.attack,
+        defense: pokemonDetail[0].pokemon.dataValues.defense,
+        speed: pokemonDetail[0].pokemon.dataValues.speed,
     };
     res.status(200).send(pokemonData);
 });
