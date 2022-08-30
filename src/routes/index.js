@@ -324,7 +324,7 @@ router.get('/pokemons/:id', async (req, res) => {
     const pokemonData = {
         name: pokemonDetail.name,
         id: pokemonDetail.id,
-        image: pokemonDetail.sprites.other['official-artwork'].front_default,
+        image: pokemonDetail.image,
         height: pokemonDetail.height,
         weight: pokemonDetail.weight,
         types: pokemonDetail.types.map(poke => poke.type.name),
