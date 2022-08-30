@@ -222,7 +222,6 @@ const getDbPokemons5 = async () => {
 router.get('/pokemonsDb', async (req, res) => {
     const name = req.query.name;
     const dbPokemons = await Pokemon.findAll();
-    console.log(dbPokemons);
     if(name){
         let pokemonName = await dbPokemons.filter(el => el.name.toLowerCase().includes(name.toLowerCase()));
         pokemonName.length ?
@@ -315,9 +314,12 @@ router.get('/pokemons/:id', async (req, res) => {
         res.status(400).send('Pokemon not found');
     };
     // const pokemonDetail = await axios.get('https://pokeapi.co/api/v2/pokemon/' + id);
-    const pokemonDetail = await axios.get('http://localhost:3001/pokemonsdb')
-    const pokemon = pokemonDetail.data.id;
-    console.log(pokemon)
+    const pokemonDetail = await Pokemon.findAll({
+        where:{
+            id: id
+        }
+    })
+    console.log(pokemonDetail)
     //console.log('detalle pokemon',pokemon.sprites)
     const pokemonData = {
         name: pokemon.name,
