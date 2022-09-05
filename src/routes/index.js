@@ -50,8 +50,8 @@ const getDbPokemons = async () => {
                 weight: element.weight,
                 types: element.types
             }
-        })
-    })
+        });
+    });
 };
 //DE 40 A 70 POKEMONES
 const getApiInfo70 = async () => {
@@ -235,7 +235,7 @@ router.get('/pokemonsDb', async (req, res) => {
 //------------------------------------------------------>
 
 
-router.post('/pokemons', async (req, res) => {
+router.get('/pokemons', async (req, res) => {
     const name = req.query.name;
     let pokemons = await getDbPokemons();
     if(name){
@@ -244,7 +244,7 @@ router.post('/pokemons', async (req, res) => {
         res.status(200).send(pokemonName) :
         res.status(400).send('Pokemon was not found!');
     } else {
-        res.status(200).send(pokemons)
+        res.status(200).send(pokemons);
     };
 });
 router.get('/pokemons2', async (req, res) => {
@@ -257,7 +257,7 @@ router.get('/pokemons2', async (req, res) => {
         res.status(200).send(pokemonName2) :
         res.status(400).send('Pokemon was not found!');
     } else {
-        res.status(200).send(pokemons2)
+        res.status(200).send(pokemons2);
     };
 });
 router.get('/pokemons3', async (req, res) => {
@@ -270,7 +270,7 @@ router.get('/pokemons3', async (req, res) => {
         res.status(200).send(pokemonName3) :
         res.status(400).send('Pokemon was not found!');
     } else {
-        res.status(200).send(pokemons3)
+        res.status(200).send(pokemons3);
     };
 });
 router.get('/pokemons4', async (req, res) => {
@@ -283,7 +283,7 @@ router.get('/pokemons4', async (req, res) => {
         res.status(200).send(pokemonName4) :
         res.status(400).send('Pokemon was not found!');
     } else {
-        res.status(200).send(pokemons4)
+        res.status(200).send(pokemons4);
     };
 });
 router.get('/pokemons5', async (req, res) => {
@@ -296,7 +296,7 @@ router.get('/pokemons5', async (req, res) => {
         res.status(200).send(pokemonName5) :
         res.status(400).send('Pokemon was not found!');
     } else {
-        res.status(200).send(pokemons5)
+        res.status(200).send(pokemons5);
     };
 });
 
@@ -313,27 +313,13 @@ router.get('/pokemons/:id', async (req, res) => {
         res.status(200).send(pokemonId[0]) :
         res.status(400).send('Pokemon not found');
     };
-    // const pokemonDetail = await axios.get('https://pokeapi.co/api/v2/pokemon/' + id);
+    
     const pokemonDetail = await Pokemon.findAll({
         where:{
             id: id
         }
-    })
-    console.log(pokemonDetail)
-    //console.log('detalle pokemon',pokemon.sprites)
-    // console.log(pokemonDetail[0].pokemon)
-    // const pokemonData = {
-    //     name: pokemonDetail[0].pokemon.dataValues.name,
-    //     id: pokemonDetail[0].pokemon.dataValues.id,
-    //     image: pokemonDetail[0].pokemon.dataValues.image,
-    //     height: pokemonDetail[0].pokemon.dataValues.height,
-    //     weight: pokemonDetail[0].pokemon.dataValues.weight,
-    //     types: pokemonDetail[0].pokemon.dataValues.types,
-    //     hp: pokemonDetail[0].pokemon.dataValues.hp,
-    //     attack: pokemonDetail[0].pokemon.dataValues.attack,
-    //     defense: pokemonDetail[0].pokemon.dataValues.defense,
-    //     speed: pokemonDetail[0].pokemon.dataValues.speed,
-    // };
+    });
+
     res.status(200).send(pokemonDetail);
 });
 
@@ -399,6 +385,7 @@ router.delete('/pokemon/:id', async (req, res) => {
             id,
         },
     });
+    console.log(pokemonDelete)
     if(!pokemonDelete){
         return res.status(400).send({
             message: `Can not find the Pokemon whit id ${id}`
